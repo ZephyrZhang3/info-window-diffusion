@@ -12,8 +12,8 @@ Our goal is to **unify** a set of widely observed high-noise phenomena in diffus
 
 Diffusion forward marginals can be viewed as a family of Gaussian channels.  
 We characterize the **high-noise region** as an **information window**, where the per-dimension mutual information between data and noisy state is small:
-- unconditional:  \( r_t := \frac{1}{d} I(X; X_t) \)
-- conditional:    \( r_{c,t} := \frac{1}{d} I(X; X_t \mid C) \)
+- unconditional:  $ r_t := \frac{1}{d} I(X; X_t) $
+- conditional:    $ r_{c,t} := \frac{1}{d} I(X; X_t \mid C) $
 
 **Main thesis:** In this window, the **Bayes-optimal denoising gain** is information-limited.  
 As a consequence, *any* control mechanism that relies on conditional information (e.g., CFG) must be ineffective (or even harmful) in the high-noise regime.
@@ -28,9 +28,9 @@ We convert the theory into falsifiable predictions for real diffusion models.
 There exists a time interval where guidance is useful, and it should **avoid the low-information window**.  
 We estimate a measurable proxy of conditional signal strength:
 
-\[
+$$
 J_t := \frac{1}{d}\mathbb{E}\big\|s_\theta(x_t,t,c) - s_\theta(x_t,t,\varnothing)\big\|_2^2.
-\]
+$$
 
 We predict the best guidance onset time by a threshold crossing of \(J_t\), and verify it by grid-searching
 guidance activation intervals \([t_\mathrm{on}, t_\mathrm{off}]\).
