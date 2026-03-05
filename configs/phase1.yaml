@@ -1,0 +1,37 @@
+# Phase 1: Oracle Toy Validation Configuration
+# Core principle: Read parameters only from config file, no command-line overrides
+
+# GMM Distribution Parameters
+gmm:
+  d: 32                   # Feature dimension
+  m: 8.0                 # Mean shift parameter
+  s: 1.0                # Standard deviation
+
+# Gamma Grid Design (from phase1.md)
+# Two-stage grid: global for shape, asymptotic for plateau
+gamma_grid:
+  # Global grid: for observing the full shape of J(γ)
+  global: [1.0, 0.3, 0.1, 0.03, 0.01, 0.003, 0.001]
+  # Asymptotic grid: for plateau test (small γ region)
+  asymptotic: [3e-4, 1e-4, 3e-5, 1e-5, 3e-6, 1e-6]
+
+# Monte Carlo Sampling Parameters
+monte_carlo:
+  n_samples_global: 20000      # Samples per γ in global grid
+  n_samples_asymptotic: 100000 # Samples per γ in asymptotic grid
+  seeds: [0, 1, 2]              # Random seeds for reproducibility
+  batch_size: 10000             # Batch size for memory management
+
+# Plateau Test Parameters (from phase1.md Section 5)
+plateau_test:
+  cv_threshold: 0.15            # CV threshold: CV <= 0.15
+  r2_threshold: 0.98            # R² threshold: R² >= 0.98
+  vc_relative_tol: 0.20         # |a - v_C| / v_C <= 0.20
+
+# Identity Verification (from phase1.md Section 5.1)
+identity_check:
+  median_err_threshold: 1e-3    # median(err_id) <= 1e-3 (relaxed: 1e-2)
+
+# Output Configuration
+output:
+  base_dir: phase1_oracle       # Output directory name

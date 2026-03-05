@@ -1,0 +1,94 @@
+[project]
+name = "info-window-diffusion"
+version = "0.1.0"
+description = "Experiments for Information Windows in Diffusion Models"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "tqdm>=4.66",
+  "pyyaml>=6.0",
+  "omegaconf>=2.3",
+  "einops>=0.7",
+  "pydantic>=2.6",
+  "rich>=13.7",
+  "matplotlib>=3.8",
+  "torch>=2.10.0",
+]
+
+
+
+[project.optional-dependencies]
+# ---- Stable Diffusion / diffusers ----
+# ---- CIFAR / guided-diffusion ----
+gd = [
+  "torchvision>=0.16",     # torch 本体见下文（CUDA/CPU）
+  "blobfile>=2.1",         # guided-diffusion 常用
+]
+
+sd = [
+  "diffusers>=0.27",
+  "transformers>=4.38",
+  "accelerate>=0.27",
+  "safetensors>=0.4",
+  "pillow>=10.0",
+  "huggingface_hub>=0.20",
+]
+
+# ---- Metrics ----
+metrics = [
+  "clean-fid>=0.1.35",
+  "torch-fidelity>=0.3.0",
+  "open-clip-torch>=2.24.0",
+]
+
+# ---- Logging (optional) ----
+logging = [
+  "wandb>=0.16",
+  "tensorboard>=2.14",
+]
+
+# ---- One-shot install for this repo ----
+all = [
+  # sd
+  "diffusers>=0.27",
+  "transformers>=4.38",
+  "accelerate>=0.27",
+  "safetensors>=0.4",
+  "pillow>=10.0",
+  "huggingface_hub>=0.20",
+  # gd
+  "torchvision>=0.16",
+  "blobfile>=2.1",
+  # metrics
+  "clean-fid>=0.1.35",
+  "torch-fidelity>=0.3.0",
+  "open-clip-torch>=2.24.0",
+  # logging
+  "wandb>=0.16",
+  "tensorboard>=2.14",
+]
+
+
+[dependency-groups]
+dev = [
+  "ruff>=0.6.0",
+  "pytest>=8.0",
+  "pytest-xdist>=3.5",
+  "mypy>=1.8",
+]
+
+
+[[tool.uv.index]]
+url="https://pypi.tuna.tsinghua.edu.cn/simple"
+default=true
+
+
+[project.scripts]
+iw-phase1     = "iw_dm.experiments.run_phase1:main"
+iw-phase2     = "iw_dm.experiments.run_phase2:main"
+iw-proxy      = "iw_dm.experiments.run_proxy:main"
+iw-interval   = "iw_dm.experiments.run_interval:main"
+iw-schedules  = "iw_dm.experiments.run_schedules:main"
+iw-stabilizers = "iw_dm.experiments.run_stabilizers:main"
